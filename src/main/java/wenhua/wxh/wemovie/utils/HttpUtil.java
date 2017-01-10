@@ -34,7 +34,7 @@ public class HttpUtil {
 
     private final Logger logger = LoggerFactory.getLogger(HttpUtil.class);
 
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper();
     private CloseableHttpClient httpClient;
 
     @Autowired

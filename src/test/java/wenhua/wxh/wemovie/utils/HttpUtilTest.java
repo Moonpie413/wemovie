@@ -62,6 +62,14 @@ public class HttpUtilTest {
 
     @Test
     public void testDoPost() throws Exception {
+        String xmlString = " <xml>\n" +
+                " <ToUserName><![CDATA[toUser]]></ToUserName>\n" +
+                " <FromUserName><![CDATA[fromUser]]></FromUserName> \n" +
+                " <CreateTime>1348831860</CreateTime>\n" +
+                " <MsgType><![CDATA[text]]></MsgType>\n" +
+                " <Content><![CDATA[this is a test]]></Content>\n" +
+                " <MsgId>1234567890123456</MsgId>\n" +
+                " </xml>";
 
     }
 
