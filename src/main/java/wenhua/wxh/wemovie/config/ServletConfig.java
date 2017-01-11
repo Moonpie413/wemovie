@@ -8,6 +8,8 @@ import org.springframework.web.multipart.support.StandardServletMultipartResolve
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import java.nio.charset.StandardCharsets;
+
 /**
  * Created by wangxh on 17-1-7.
  * Package wenhua.wxh.wemovie.config
@@ -22,6 +24,5 @@ public class ServletConfig extends WebMvcConfigurerAdapter {
     public MultipartResolver multipartResolver() {
         return new StandardServletMultipartResolver();
     }
-
 
 }

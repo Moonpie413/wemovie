@@ -35,14 +35,14 @@ public class Message {
     private String FromUserName;
 
     @XmlElement(required = true)
-    private Integer CreateTime;
+    private Long CreateTime;
 
     @XmlElement(required = true)
     @XmlJavaTypeAdapter(CDataAdapter.class)
     private String MsgType;
 
     @XmlElement(required = true)
-    private Integer MsgId;
+    private Long MsgId;
 
     @XmlCDATA
     public String getToUserName() {
@@ -64,11 +64,11 @@ public class Message {
         FromUserName = fromUserName;
     }
 
-    public Integer getCreateTime() {
+    public Long getCreateTime() {
         return CreateTime;
     }
 
-    public void setCreateTime(Integer createTime) {
+    public void setCreateTime(Long createTime) {
         CreateTime = createTime;
     }
 
@@ -82,11 +82,11 @@ public class Message {
         MsgType = msgType;
     }
 
-    public Integer getMsgId() {
+    public Long getMsgId() {
         return MsgId;
     }
 
-    public void setMsgId(Integer msgId) {
+    public void setMsgId(Long msgId) {
         MsgId = msgId;
     }
     // 基本值结束
@@ -270,6 +270,5 @@ public class Message {
     public void setUrl(String url) {
         Url = url;
     }
-
     // 链接消息结束
 }

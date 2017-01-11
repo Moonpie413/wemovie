@@ -52,7 +52,7 @@ public class HttpUtil {
      */
     public JsonNode doGetWithJSON(String url, List<NameValuePair> params, Header[] headers) throws IOException {
         HttpResponse response = doGet(url, params, headers);
-        Header header = response.getFirstHeader("String-Type");
+        Header header = response.getFirstHeader("Content-Type");
         if (header.getValue() == null || "".equals(header.getValue())
                 || !header.getValue().startsWith("application/json")) throw new RuntimeException("content-type无效");
         return objectMapper.readValue(response.getEntity().getContent(), JsonNode.class);
