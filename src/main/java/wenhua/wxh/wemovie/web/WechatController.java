@@ -12,9 +12,7 @@ import wenhua.wxh.wemovie.wechat.beans.xml.Message;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.JAXBException;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -54,11 +52,31 @@ public class WechatController {
 
     @PostMapping
     public void acceptMessage(HttpServletRequest request, HttpServletResponse response) throws IOException, JAXBException {
-        Message message = (Message) xmlConverter.xml2Object(request.getInputStream());
-        logger.info("接收到用户 {} 的消息， 消息类型： {}， 消息内容： {}",
-                message.getFromUserName(), message.getMsgType(), message.getContent());
+        Message messageReceived = (Message) xmlConverter.xml2Object(request.getInputStream());
+        String mesType = messageReceived.getMsgType();
+        switch (mesType) {
+            case Message.TEXT:
+                handleTextMessage(messageReceived);
+            case Message.IMAGE:
+                break;
+            case Message.VOICE:
+                break;
+            case Message.VIDEO:
+                break;
+            case Message.SHORTVIDEO:
+                break;
+            case Message.LOCATION:
+                break;
+            default:
+                throw new RuntimeException("消息类型不合法");
+        }
+
         response.setStatus(200);
         response.getWriter().write("succeed");
+    }
+
+    public void handleTextMessage(Message message) {
+
     }
 
     @Autowired

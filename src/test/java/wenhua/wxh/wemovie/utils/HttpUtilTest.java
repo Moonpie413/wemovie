@@ -67,7 +67,7 @@ public class HttpUtilTest {
                 " <FromUserName><![CDATA[fromUser]]></FromUserName> \n" +
                 " <CreateTime>1348831860</CreateTime>\n" +
                 " <MsgType><![CDATA[text]]></MsgType>\n" +
-                " <Content><![CDATA[this is a test]]></Content>\n" +
+                " <String><![CDATA[this is a test]]></String>\n" +
                 " <MsgId>1234567890123456</MsgId>\n" +
                 " </xml>";
 

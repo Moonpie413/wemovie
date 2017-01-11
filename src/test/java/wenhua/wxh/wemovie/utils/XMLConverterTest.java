@@ -1,5 +1,6 @@
 package wenhua.wxh.wemovie.utils;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -10,11 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import wenhua.wxh.wemovie.config.RootConfig;
 import wenhua.wxh.wemovie.wechat.beans.xml.Message;
 
-import javax.xml.transform.stream.StreamSource;
-
 import java.io.ByteArrayInputStream;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by maroon on 17-1-10.
@@ -42,6 +39,13 @@ public class XMLConverterTest {
     public void xml2Object() throws Exception {
         Message message = (Message) xmlConverter.xml2Object(new ByteArrayInputStream(xmlString.getBytes()));
         logger.info(message.toString());
+        logger.info(message.getToUserName());
+    }
+
+    @Test
+    public void object2XML() throws Exception {
+        Message message = (Message) xmlConverter.xml2Object(new ByteArrayInputStream(xmlString.getBytes()));
+        logger.info(xmlConverter.object2XML(message));
     }
 
     @Autowired

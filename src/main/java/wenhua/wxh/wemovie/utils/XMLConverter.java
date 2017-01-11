@@ -1,14 +1,18 @@
 package wenhua.wxh.wemovie.utils;
 
+import com.sun.xml.internal.bind.marshaller.CharacterEscapeHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.oxm.Marshaller;
-import org.springframework.oxm.Unmarshaller;
 import org.springframework.stereotype.Component;
+import wenhua.wxh.wemovie.wechat.beans.xml.Message;
 
-import javax.xml.transform.stream.StreamSource;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import java.io.*;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -30,7 +34,28 @@ public class XMLConverter {
         this.unmarshaller = unmarshaller;
     }
 
-    public Object xml2Object(InputStream inputStream) throws IOException {
-        return unmarshaller.unmarshal(new StreamSource(inputStream));
+    /**
+     * XML输入流转为对象
+     * @param inputStream
+     * @return 转换后的对象
+     * @throws JAXBException
+     */
+    public Object xml2Object(InputStream inputStream) throws JAXBException {
+        return unmarshaller.unmarshal(inputStream);
+    }
+
+    /**
+     * 对象转换为XML
+     * @param o
+     * @throws IOException
+     * @throws JAXBException
+     */
+    public String object2XML(Object o) throws IOException, JAXBException {
+        String result;
+        try (StringWriter stringWriter = new StringWriter()){
+            marshaller.marshal(o, stringWriter);
+            result = stringWriter.toString();
+        }
+        return result;
     }
 }

@@ -1,29 +1,31 @@
 package wenhua.wxh.wemovie.config;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.sun.xml.internal.bind.marshaller.CharacterEscapeHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.*;
 import org.springframework.data.redis.cache.RedisCacheManager;
-import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
-import org.springframework.oxm.Marshaller;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import wenhua.wxh.wemovie.utils.PropertyUtil;
-import wenhua.wxh.wemovie.utils.XMLConverter;
+import wenhua.wxh.wemovie.wechat.beans.xml.Message;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,13 +60,28 @@ public class RootConfig {
     }
 
     @Bean
-    public Jaxb2Marshaller jaxb2Marshaller() {
-        Jaxb2Marshaller jaxb2Marshaller = new Jaxb2Marshaller();
-        jaxb2Marshaller.setClassesToBeBound(wenhua.wxh.wemovie.wechat.beans.xml.Message.class);
-        Map<String,Object> map = new HashMap<String,Object>();
-        map.put("jaxb.formatted.output", true);
-        jaxb2Marshaller.setMarshallerProperties(map);
-        return jaxb2Marshaller;
+    public Unmarshaller unmarshaller() throws JAXBException {
+        return jaxbContext().createUnmarshaller();
+    }
+
+    @Bean
+    public Marshaller marshaller() throws JAXBException {
+        Marshaller marshaller = jaxbContext().createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        marshaller.setProperty(CharacterEscapeHandler.class.getName(),
+                new CharacterEscapeHandler() {
+                    @Override
+                    public void escape(char[] ac, int i, int j, boolean flag,
+                                       Writer writer) throws IOException {
+                        writer.write(ac, i, j);
+                    }
+                });
+        return marshaller;
+    }
+
+    @Bean
+    public JAXBContext jaxbContext() throws JAXBException {
+        return JAXBContext.newInstance(Message.class);
     }
 
     @Bean
@@ -73,8 +90,8 @@ public class RootConfig {
     }
 
     @Bean
-    public RedisTemplate<String, JsonNode> redisTemplate(RedisConnectionFactory connectionFactory) {
-        RedisTemplate<String, JsonNode> redisTemplate = new RedisTemplate<>();
+    public RedisTemplate<java.lang.String, JsonNode> redisTemplate(RedisConnectionFactory connectionFactory) {
+        RedisTemplate<java.lang.String, JsonNode> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(connectionFactory);
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<JsonNode>(JsonNode.class));

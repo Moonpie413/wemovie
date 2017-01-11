@@ -1,261 +1,275 @@
 package wenhua.wxh.wemovie.wechat.beans.xml;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import com.sun.xml.internal.txw2.annotation.XmlCDATA;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * Created by maroon on 17-1-10.
  * Package wenhua.wxh.wemovie.wechat.beans
  * DES:
+ * PS: @XmlCDATA 注解没卵用， 要生成CDATA得用 @XmlJavaTypeAdapter
  */
 @XmlRootElement(name = "xml")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Message {
+
+    public static final String TEXT = "text";
+    public static final String IMAGE = "image";
+    public static final String VOICE = "voice";
+    public static final String VIDEO = "video";
+    public static final String SHORTVIDEO = "shortvideo";
+    public static final String LOCATION = "location";
+
+    // 基本值
     @XmlElement(required = true)
+    @XmlJavaTypeAdapter(CDataAdapter.class)
     private String ToUserName;
+
     @XmlElement(required = true)
+    @XmlJavaTypeAdapter(CDataAdapter.class)
     private String FromUserName;
+
     @XmlElement(required = true)
-    private String CreateTime;
+    private Integer CreateTime;
+
     @XmlElement(required = true)
+    @XmlJavaTypeAdapter(CDataAdapter.class)
     private String MsgType;
+
     @XmlElement(required = true)
-    private String MsgId;
+    private Integer MsgId;
 
-    @XmlElement
-    private String Content;
-
-    @XmlElement
-    private String PicUrl;
-    // 语音格式，如amr，speex等
-    @XmlElement
-    private String Format;
-    @XmlElement
-    private String MediaId;
-    // 视频消息缩略图的媒体id
-    @XmlElement
-    private String ThumbMediaId;
-
-    // 地理位置
-    @XmlElement
-    private String Location_X;
-
-    @XmlElement
-    private String Location_Y;
-
-    // 地图缩放大小
-    @XmlElement
-    private String Scale;
-
-    // 地理位置信息
-    @XmlElement
-    private String Label;
-
-    @XmlElement
-    private String Title;
-
-    @XmlElement
-    private String Description;
-
+    @XmlCDATA
     public String getToUserName() {
         return ToUserName;
     }
 
+    @XmlCDATA
     public void setToUserName(String toUserName) {
         ToUserName = toUserName;
     }
 
+    @XmlCDATA
     public String getFromUserName() {
         return FromUserName;
     }
 
+    @XmlCDATA
     public void setFromUserName(String fromUserName) {
         FromUserName = fromUserName;
     }
 
-    public String getCreateTime() {
+    public Integer getCreateTime() {
         return CreateTime;
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(Integer createTime) {
         CreateTime = createTime;
     }
 
+    @XmlCDATA
     public String getMsgType() {
         return MsgType;
     }
 
+    @XmlCDATA
     public void setMsgType(String msgType) {
         MsgType = msgType;
     }
 
+    public Integer getMsgId() {
+        return MsgId;
+    }
+
+    public void setMsgId(Integer msgId) {
+        MsgId = msgId;
+    }
+    // 基本值结束
+
+    // 文字消息类型
+    @XmlElement
+    @XmlJavaTypeAdapter(CDataAdapter.class)
+    private String Content;
+
+    @XmlCDATA
     public String getContent() {
         return Content;
     }
 
+    @XmlCDATA
     public void setContent(String content) {
         Content = content;
     }
+    // 文字消息类型结束
 
+    // 多媒体类型
+    @XmlElement
+    @XmlJavaTypeAdapter(CDataAdapter.class)
+    private String PicUrl;
+
+    @XmlElement
+    @XmlJavaTypeAdapter(CDataAdapter.class)
+    private String MediaId;
+
+    @XmlElement
+    @XmlJavaTypeAdapter(CDataAdapter.class)
+    private String Format;
+
+    @XmlElement
+    @XmlJavaTypeAdapter(CDataAdapter.class)
+    private String Recognition;
+
+    @XmlElement
+    @XmlJavaTypeAdapter(CDataAdapter.class)
+    private String ThumbMediaId;
+
+    @XmlCDATA
     public String getPicUrl() {
         return PicUrl;
     }
 
+    @XmlCDATA
     public void setPicUrl(String picUrl) {
         PicUrl = picUrl;
     }
 
-    public String getFormat() {
-        return Format;
-    }
-
-    public void setFormat(String format) {
-        Format = format;
-    }
-
+    @XmlCDATA
     public String getMediaId() {
         return MediaId;
     }
 
+    @XmlCDATA
     public void setMediaId(String mediaId) {
         MediaId = mediaId;
     }
 
+    @XmlCDATA
+    public String getFormat() {
+        return Format;
+    }
+
+    @XmlCDATA
+    public void setFormat(String format) {
+        Format = format;
+    }
+
+    @XmlCDATA
+    public String getRecognition() {
+        return Recognition;
+    }
+
+    @XmlCDATA
+    public void setRecognition(String recognition) {
+        Recognition = recognition;
+    }
+
+    @XmlCDATA
     public String getThumbMediaId() {
         return ThumbMediaId;
     }
 
+    @XmlCDATA
     public void setThumbMediaId(String thumbMediaId) {
         ThumbMediaId = thumbMediaId;
     }
+    // 多媒体类型结束
 
-    public String getLocation_X() {
+    // 地理位置类型
+    @XmlElement
+    private Float Location_X;
+
+    @XmlElement
+    private Float Location_Y;
+
+    @XmlElement
+    private Integer Scale;
+
+    @XmlElement
+    @XmlJavaTypeAdapter(CDataAdapter.class)
+    private String Label;
+
+    public Float getLocation_X() {
         return Location_X;
     }
 
-    public void setLocation_X(String location_X) {
+    public void setLocation_X(Float location_X) {
         Location_X = location_X;
     }
 
-    public String getLocation_Y() {
+    public Float getLocation_Y() {
         return Location_Y;
     }
 
-    public void setLocation_Y(String location_Y) {
+    public void setLocation_Y(Float location_Y) {
         Location_Y = location_Y;
     }
 
-    public String getScale() {
+    public Integer getScale() {
         return Scale;
     }
 
-    public void setScale(String scale) {
+    public void setScale(Integer scale) {
         Scale = scale;
     }
 
+    @XmlCDATA
     public String getLabel() {
         return Label;
     }
 
+    @XmlCDATA
     public void setLabel(String label) {
         Label = label;
     }
+    // 地理位置类型结束
 
+    // 链接消息类型
+    @XmlElement
+    @XmlJavaTypeAdapter(CDataAdapter.class)
+    private String Title;
+
+    @XmlElement
+    @XmlJavaTypeAdapter(CDataAdapter.class)
+    private String Description;
+
+    @XmlElement
+    @XmlJavaTypeAdapter(CDataAdapter.class)
+    private String Url;
+
+    @XmlCDATA
     public String getTitle() {
         return Title;
     }
 
+    @XmlCDATA
     public void setTitle(String title) {
         Title = title;
     }
 
+    @XmlCDATA
     public String getDescription() {
         return Description;
     }
 
+    @XmlCDATA
     public void setDescription(String description) {
         Description = description;
     }
 
-
-    public String getMsgId() {
-        return MsgId;
+    @XmlCDATA
+    public String getUrl() {
+        return Url;
     }
 
-    public void setMsgId(String msgId) {
-        MsgId = msgId;
+    @XmlCDATA
+    public void setUrl(String url) {
+        Url = url;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Message message = (Message) o;
-
-        return new EqualsBuilder()
-                .append(CreateTime, message.CreateTime)
-                .append(MsgId, message.MsgId)
-                .isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .append(CreateTime)
-                .append(MsgId)
-                .toHashCode();
-    }
-
-    // TODO toString转为xml
-//    @Override
-//    public String toString() {
-//        Field[] fields = this.getClass().getDeclaredFields();
-//        StringBuilder xmlString = new StringBuilder();
-//        xmlString.append("<xml>");
-//        for (Field field : fields) {
-//            String fieldName = field.getName();
-//            try {
-//                Method method = this.getClass().getMethod("get" + fieldName);
-//                String fieldValue = (String) method.invoke(this);
-//                if (!fieldValue.equals("null")) {
-//
-//                }
-//            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        xmlString.append("</xml>")
-//        return null;
-//    }
-
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this)
-                .append("ToUserName", ToUserName)
-                .append("FromUserName", FromUserName)
-                .append("CreateTime", CreateTime)
-                .append("MsgType", MsgType)
-                .append("MsgId", MsgId)
-                .append("Content", Content)
-                .append("PicUrl", PicUrl)
-                .append("Format", Format)
-                .append("MediaId", MediaId)
-                .append("ThumbMediaId", ThumbMediaId)
-                .append("Location_X", Location_X)
-                .append("Location_Y", Location_Y)
-                .append("Scale", Scale)
-                .append("Label", Label)
-                .append("Title", Title)
-                .append("Description", Description)
-                .toString();
-    }
+    // 链接消息结束
 }
