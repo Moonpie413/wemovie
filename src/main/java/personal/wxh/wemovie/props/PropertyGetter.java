@@ -10,7 +10,10 @@ import org.springframework.stereotype.Component;
  * DES: 属性配置映射，对应classpath下props文件夹下的配置
  */
 @Component
-@PropertySource(value = { "classpath:props/wechat.properties", "classpath:props/redis.properties" })
+@PropertySource(value = {
+        "classpath:props/wechat.properties",
+        "classpath:props/redis.properties",
+        "classpath:props/mysql.properties" })
 public class PropertyGetter {
     // 安全类配置
     public static final String APPID = "wechat.securty.appID";
@@ -24,6 +27,13 @@ public class PropertyGetter {
     public static final String REDIS_PORT = "redis.port";
     public static final String REDIS_PASS = "redis.pass";
     // Redis相关结束
+
+    // jdbc 相关
+    public static final String JDBC_URL = "jdbc.url";
+    public static final String JDBC_DRIVER = "jdbc.driver";
+    public static final String JDBC_USER = "jdbc.user";
+    public static final String JDBC_PASS = "jdbc.password";
+    // jdbc 相关结束
 
     private Environment environment;
 

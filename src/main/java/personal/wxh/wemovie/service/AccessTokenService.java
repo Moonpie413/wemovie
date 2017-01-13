@@ -7,12 +7,16 @@ import org.springframework.stereotype.Service;
 import personal.wxh.wemovie.dao.redis.RedisOperator;
 import personal.wxh.wemovie.http.wechat.token.HttpAccessToken;
 
+import javax.annotation.Resource;
+
 /**
  * Created by maroon on 17-1-12.
  * DES:
  */
 @Service
 public class AccessTokenService {
+
+    @Resource
     private RedisOperator redisOperator;
     public static final Logger logger = LoggerFactory.getLogger(AccessTokenService.class);
 
@@ -30,11 +34,6 @@ public class AccessTokenService {
 
     public String getAccessToken() {
         return (String) redisOperator.get("access_token");
-    }
-
-    @Autowired
-    public void setRedisOperator(RedisOperator redisOperator) {
-        this.redisOperator = redisOperator;
     }
 
     @Autowired

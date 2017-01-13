@@ -7,10 +7,10 @@
     </layout>
   </appender>
 
-  <!--<logger name="com.base22" level="TRACE"/>-->
-  <!--<logger name="org.springframework" level="ERROR" />-->
-  <!--<logger name="redis.clients" level="ERROR" />-->
-  <!--<logger name="org.apache.http" level="ERROR" />-->
+  <logger name="com.base22" level="TRACE"/>
+  <logger name="org.springframework" level="ERROR" />
+  <logger name="redis.clients" level="ERROR" />
+  <logger name="org.apache.http" level="ERROR" />
 
 
   <root level="debug">

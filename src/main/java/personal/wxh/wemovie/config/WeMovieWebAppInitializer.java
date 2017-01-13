@@ -15,7 +15,7 @@ import java.nio.charset.StandardCharsets;
 public class WeMovieWebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[]{ RootConfig.class };
+        return new Class<?>[]{ RootConfig.class, DatabaseConfig.class };
     }
 
     @Override
