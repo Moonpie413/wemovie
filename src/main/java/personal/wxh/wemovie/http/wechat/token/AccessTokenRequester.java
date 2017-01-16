@@ -20,13 +20,13 @@ import java.util.List;
  * DES: 调用微信的accessToken API 刷新AccessToken
  */
 @Component
-public class HttpAccessToken {
+public class AccessTokenRequester {
 
     private static final int EXPIRES_IN_DEFAULT = 7200;
     private HttpTool httpTool;
     private PropertyGetter propertyGetter;
 
-    private static final Logger logger = LoggerFactory.getLogger(HttpAccessToken.class);
+    private static final Logger logger = LoggerFactory.getLogger(AccessTokenRequester.class);
 
     public String requestAccessToken() {
         List<NameValuePair> params = new ArrayList<>();
@@ -47,8 +47,7 @@ public class HttpAccessToken {
                 }
             }
         } catch (IOException e) {
-            logger.error("accessToken请求异常");
-            e.printStackTrace();
+            logger.error("accessToken请求异常", e);
         }
         return null;
     }

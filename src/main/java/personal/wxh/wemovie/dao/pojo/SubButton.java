@@ -1,5 +1,7 @@
 package personal.wxh.wemovie.dao.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -8,8 +10,11 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  * Created by maroon on 17-1-13.
  * DES:
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class SubButton {
+    @JsonIgnore
     private Integer sub_button_id;
+    @JsonIgnore
     private Integer button_id;
     private String name;
     private String type;

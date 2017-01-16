@@ -26,7 +26,7 @@ public interface ButtonMapper {
             @Result(property = "key", column = "key"),
             @Result(property = "url", column = "url"),
             @Result(property = "media_id", column = "media_id"),
-            @Result(property = "subButtonList",
+            @Result(property = "subButton",
                     column = "button_id",
                     many = @Many(select = "personal.wxh.wemovie.dao.mappers.SubButtonMapper.getSubButtonsForButton"))})
     @SelectProvider(type = ButtonSqlBuilder.class, method = "buildGetAllButtons")

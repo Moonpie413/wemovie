@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import personal.wxh.wemovie.dao.redis.RedisOperator;
-import personal.wxh.wemovie.http.wechat.token.HttpAccessToken;
+import personal.wxh.wemovie.http.wechat.token.AccessTokenRequester;
 
 import javax.annotation.Resource;
 
@@ -20,10 +20,10 @@ public class AccessTokenService {
     private RedisOperator redisOperator;
     public static final Logger logger = LoggerFactory.getLogger(AccessTokenService.class);
 
-    private HttpAccessToken httpAccessToken;
+    private AccessTokenRequester accessTokenRequester;
 
     public void refreshAccessToken() {
-        String accessToken = this.httpAccessToken.requestAccessToken();
+        String accessToken = this.accessTokenRequester.requestAccessToken();
         if (accessToken != null) {
             String accessTokenOld = (String) redisOperator.getAndSet("access_token", accessToken);
             logger.info("刷新 access_token 缓存 {} -> {}", accessTokenOld, accessToken);
@@ -37,8 +37,8 @@ public class AccessTokenService {
     }
 
     @Autowired
-    public void setHttpAccessToken(HttpAccessToken httpAccessToken) {
-        this.httpAccessToken = httpAccessToken;
+    public void setAccessTokenRequester(AccessTokenRequester accessTokenRequester) {
+        this.accessTokenRequester = accessTokenRequester;
     }
 
 }

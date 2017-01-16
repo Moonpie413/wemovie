@@ -1,19 +1,25 @@
 package personal.wxh.wemovie.dao.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 /**
  * Created by maroon on 17-1-13.
  * DES:
  */
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Button {
+    @JsonIgnore
     private Integer button_id;
     private String name;
     private String type;
     private String key;
     private String url;
     private String media_id;
-    private List<SubButton> subButtonList;
+    private List<SubButton> subButton;
 
     public Integer getButton_id() {
         return button_id;
@@ -63,12 +69,12 @@ public class Button {
         this.media_id = media_id;
     }
 
-    public List<SubButton> getSubButtonList() {
-        return subButtonList;
+    public List<SubButton> getSubButton() {
+        return subButton;
     }
 
-    public void setSubButtonList(List<SubButton> subButtonList) {
-        this.subButtonList = subButtonList;
+    public void setSubButton(List<SubButton> subButton) {
+        this.subButton = subButton;
     }
 
     @Override
@@ -80,7 +86,7 @@ public class Button {
         sb.append(", key='").append(key).append('\'');
         sb.append(", url='").append(url).append('\'');
         sb.append(", media_id='").append(media_id).append('\'');
-        sb.append(", subButtonList=").append(subButtonList);
+        sb.append(", subButton=").append(subButton);
         sb.append('}');
         return sb.toString();
     }
