@@ -10,12 +10,16 @@ import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.web.servlet.resource.ResourceResolver;
 import personal.wxh.wemovie.props.PropertyGetter;
 
 import javax.sql.DataSource;
@@ -26,7 +30,7 @@ import javax.sql.DataSource;
  */
 @Configuration
 @ComponentScan("personal.wxh.wemovie.dao")
-@MapperScan("personal.wxh.wemovie.dao.mapper")
+@MapperScan("personal.wxh.wemovie.dao.mappers")
 public class DatabaseConfig {
 
     private static final Logger logger = LoggerFactory.getLogger(DatabaseConfig.class);
