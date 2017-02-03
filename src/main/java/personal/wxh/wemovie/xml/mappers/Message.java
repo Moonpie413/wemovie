@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * DES:
  * PS: @XmlCDATA 注解没卵用， 要生成CDATA得用 @XmlJavaTypeAdapter
  */
-@XmlRootElement(name = "xmlmapper")
+@XmlRootElement(name = "xml")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Message {
 
@@ -23,6 +23,7 @@ public class Message {
     public static final String VIDEO = "video";
     public static final String SHORTVIDEO = "shortvideo";
     public static final String LOCATION = "location";
+    public static final String NEWS = "news";
 
     // 基本值
     @XmlElement(required = true)
@@ -270,4 +271,27 @@ public class Message {
         Url = url;
     }
     // 链接消息结束
+
+    // 图文消息
+    @XmlElement
+    private Integer ArticleCount;
+    @XmlElement(name = "Articles")
+    private Articles articles;
+
+    public Integer getArticleCount() {
+        return ArticleCount;
+    }
+
+    public void setArticleCount(int articleCount) {
+        ArticleCount = articleCount;
+    }
+
+    public Articles getArticles() {
+        return articles;
+    }
+
+    public void setArticles(Articles articles) {
+        this.articles = articles;
+    }
+    // 图文消息结束
 }
