@@ -62,7 +62,8 @@ public class DatabaseConfig {
         JedisConnectionFactory factory = new JedisConnectionFactory();
         factory.setHostName(propertyGetter.getProperty(PropertyGetter.REDIS_HOSTNAME, "127.0.0.1"));
         factory.setPort(propertyGetter.getPropertyInt(PropertyGetter.REDIS_PORT, "6379"));
-        factory.setPassword(propertyGetter.getProperty(PropertyGetter.REDIS_PASS, ""));
+        // TODO 暂时不验证密码
+//        factory.setPassword(propertyGetter.getProperty(PropertyGetter.REDIS_PASS, ""));
         return factory;
     }
 

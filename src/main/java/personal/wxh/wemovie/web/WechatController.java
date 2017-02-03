@@ -33,7 +33,7 @@ public class WechatController {
         this.propertyGetter = propertyGetter;
     }
 
-    @GetMapping(consumes = "application/json")
+    @GetMapping
     public String auth(@RequestParam String signature, @RequestParam String timestamp,
                        @RequestParam String nonce, @RequestParam String echostr) {
         String token = propertyGetter.getProperty(PropertyGetter.TOKEN);

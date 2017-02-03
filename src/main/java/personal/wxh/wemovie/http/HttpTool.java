@@ -2,10 +2,7 @@ package personal.wxh.wemovie.http;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.http.Header;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.NameValuePair;
+import org.apache.http.*;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
@@ -28,8 +25,8 @@ import java.util.List;
 @Component
 public class HttpTool {
 
-    public static final String GET = "GET";
-    public static final String POST = "POST";
+    private static final String GET = "GET";
+    private static final String POST = "POST";
 
     private final Logger logger = LoggerFactory.getLogger(HttpTool.class);
 
@@ -66,7 +63,7 @@ public class HttpTool {
      * @throws IOException IOException
      */
     public HttpResponse doGet(String url, List<NameValuePair> params, Header[] headers) throws IOException {
-        return send(url, GET, params, headers);
+        return send(url, GET, params, headers, null);
     }
 
     /**
@@ -77,8 +74,8 @@ public class HttpTool {
      * @return 响应对象
      * @throws IOException IOException
      */
-    public HttpResponse doPost(String url, List<NameValuePair> params, Header[] headers) throws IOException {
-        return send(url, POST, params, headers);
+    public HttpResponse doPost(String url, List<NameValuePair> params, Header[] headers, HttpEntity entity) throws IOException {
+        return send(url, POST, params, headers, entity);
     }
 
     /**
@@ -91,7 +88,7 @@ public class HttpTool {
      * @throws IOException IOException
      */
     private HttpResponse send(String url, String method,
-                             List<NameValuePair> params, Header[] headers) throws IOException {
+                              List<NameValuePair> params, Header[] headers, HttpEntity entity) throws IOException {
         if (!GET.equals(method) && !POST.equals(method)) throw new RuntimeException("Method not Support");
         URIBuilder builder;
         HttpResponse response = null;
@@ -102,15 +99,17 @@ public class HttpTool {
             if (params != null) {
                 builder.addParameters(params);
             }
-            HttpRequestBase base;
+            logger.info("发起 {} 请求： {}， 参数： {}", method, url, params == null ? "无" : params);
             if (GET.equals(method)) {
-                base = new HttpGet(builder.build());
+                HttpGet httpGet = new HttpGet(builder.build());
+                if (headers != null) httpGet.setHeaders(headers);
+                response = httpClient.execute(httpGet);
             } else {
-                base = new HttpPost(builder.build());
+                HttpPost httpPost = new HttpPost(builder.build());
+                if (headers != null) httpPost.setHeaders(headers);
+                if (entity != null) httpPost.setEntity(entity);
+                response = httpClient.execute(httpPost);
             }
-            if (headers != null) base.setHeaders(headers);
-            logger.info("发起请求： {}， 参数： {}", url, params == null ? "无" : params);
-            response = httpClient.execute(base);
             int statusCode = response.getStatusLine().getStatusCode();
             if (statusCode == HttpStatus.SC_OK) {
                 logger.info("URL： {} 请求成功", url);

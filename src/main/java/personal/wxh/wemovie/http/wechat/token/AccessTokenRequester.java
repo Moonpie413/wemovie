@@ -22,11 +22,20 @@ import java.util.List;
 @Component
 public class AccessTokenRequester {
 
+    private static final Logger logger = LoggerFactory.getLogger(AccessTokenRequester.class);
     private static final int EXPIRES_IN_DEFAULT = 7200;
     private HttpTool httpTool;
     private PropertyGetter propertyGetter;
 
-    private static final Logger logger = LoggerFactory.getLogger(AccessTokenRequester.class);
+    @Autowired
+    public void setHttpTool(HttpTool httpTool) {
+        this.httpTool = httpTool;
+    }
+
+    @Autowired
+    public void setPropertyGetter(PropertyGetter propertyGetter) {
+        this.propertyGetter = propertyGetter;
+    }
 
     public String requestAccessToken() {
         List<NameValuePair> params = new ArrayList<>();
@@ -50,15 +59,5 @@ public class AccessTokenRequester {
             logger.error("accessToken请求异常", e);
         }
         return null;
-    }
-
-    @Autowired
-    public void setHttpTool(HttpTool httpTool) {
-        this.httpTool = httpTool;
-    }
-
-    @Autowired
-    public void setPropertyGetter(PropertyGetter propertyGetter) {
-        this.propertyGetter = propertyGetter;
     }
 }
