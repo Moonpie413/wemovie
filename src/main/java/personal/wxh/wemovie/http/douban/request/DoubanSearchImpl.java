@@ -44,7 +44,7 @@ public class DoubanSearchImpl implements IDoubanSearch{
     }
 
     @Override
-//    @Cacheable(key = "#keyword", value = "doubanSearchCache")
+    @Cacheable(key = "#keyword", value = "doubanSearchCache")
     public DoubanSearchResult search(KeyType keyType, String keyword, String count, String start) {
         if (keyword != null) {
             List<NameValuePair> params = new ArrayList<>();

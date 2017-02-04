@@ -13,22 +13,22 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class RedisOperator {
 
-    private final RedisTemplate<String, Object> redisTemplate;
+    private final RedisTemplate<String, String> redisTemplate;
 
     @Autowired
-    public RedisOperator(RedisTemplate<String, Object> redisTemplate) {
+    public RedisOperator(RedisTemplate<String, String> redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 
-    public Object get(String key) {
+    public String get(String key) {
         return redisTemplate.opsForValue().get(key);
     }
 
-    public Object getAndSet(String key, Object value) {
+    public String getAndSet(String key, String value) {
         return redisTemplate.opsForValue().getAndSet(key, value);
     }
 
-    public void set(String key, Object value) {
+    public void set(String key, String value) {
         redisTemplate.opsForValue().set(key, value);
     }
 }

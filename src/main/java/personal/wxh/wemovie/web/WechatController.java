@@ -98,6 +98,7 @@ public class WechatController {
             }
             if (result != null) {
                 writer.write(result);
+                logger.info("用户 {} 的消息处理完毕", messageReceived.getFromUserName());
             }
         } catch (IOException e) {
             logger.error("消息IO错误", e);
@@ -138,12 +139,14 @@ public class WechatController {
                 DoubanSearchImpl.DEFAULT_START);
         List<Item> itemList = new ArrayList<>();
         List<Subject> subjects = searchResult.getSubjects();
-        int countNum = searchResult.getCount();
+        int countNum = subjects.size();
         Item itemHead;
         if (countNum > 0) {
-            itemHead = new Item("显示关于" + content + "的结果" + searchResult.getCount() + "条");
+            itemHead = new Item("以下为关于 " + content + " 的结果 " + searchResult.getCount());
         } else {
-            itemHead = new Item("没有找到关于" + content + "的结果");
+            messageReturn.setMsgType(Message.TEXT);
+            messageReturn.setContent("没有找到关于\n" + content + "\n" + "的结果");
+            return xmlConverter.object2XML(messageReturn);
         }
         itemList.add(itemHead);
         for (int i = 0; i < countNum; i++) {
