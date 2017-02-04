@@ -10,7 +10,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RestController;
-import personal.wxh.wemovie.xml.mappers.Message;
+import personal.wxh.wemovie.dataconvater.mappers.Message;
 import personal.wxh.wemovie.props.PropertyGetter;
 
 import javax.xml.bind.JAXBContext;

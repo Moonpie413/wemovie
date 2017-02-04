@@ -1,4 +1,4 @@
-package personal.wxh.wemovie.xml.mappers;
+package personal.wxh.wemovie.dataconvater.mappers;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 

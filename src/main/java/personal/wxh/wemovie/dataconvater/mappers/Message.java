@@ -1,4 +1,4 @@
-package personal.wxh.wemovie.xml.mappers;
+package personal.wxh.wemovie.dataconvater.mappers;
 
 import com.sun.xml.internal.txw2.annotation.XmlCDATA;
 
@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * DES:
  * PS: @XmlCDATA 注解没卵用， 要生成CDATA得用 @XmlJavaTypeAdapter
  */
-@XmlRootElement(name = "xml")
+@XmlRootElement(name = "dataconvater")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Message {
 

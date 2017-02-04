@@ -5,10 +5,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import personal.wxh.wemovie.xml.XMLConverter;
-import personal.wxh.wemovie.xml.mappers.Articles;
-import personal.wxh.wemovie.xml.mappers.Item;
-import personal.wxh.wemovie.xml.mappers.Message;
+import personal.wxh.wemovie.dataconvater.XMLConverter;
+import personal.wxh.wemovie.dataconvater.mappers.Articles;
+import personal.wxh.wemovie.dataconvater.mappers.Item;
+import personal.wxh.wemovie.dataconvater.mappers.Message;
 import personal.wxh.wemovie.props.PropertyGetter;
 
 import javax.servlet.http.HttpServletRequest;

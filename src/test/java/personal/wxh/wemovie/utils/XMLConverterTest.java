@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import personal.wxh.wemovie.config.DatabaseConfig;
-import personal.wxh.wemovie.xml.XMLConverter;
-import personal.wxh.wemovie.xml.mappers.Articles;
-import personal.wxh.wemovie.xml.mappers.Item;
-import personal.wxh.wemovie.xml.mappers.Message;
+import personal.wxh.wemovie.dataconvater.XMLConverter;
+import personal.wxh.wemovie.dataconvater.mappers.Articles;
+import personal.wxh.wemovie.dataconvater.mappers.Item;
+import personal.wxh.wemovie.dataconvater.mappers.Message;
 import personal.wxh.wemovie.config.RootConfig;
 
 import java.io.ByteArrayInputStream;
@@ -29,7 +29,7 @@ public class XMLConverterTest {
     private XMLConverter xmlConverter;
     private static Logger logger = LoggerFactory.getLogger(XMLConverter.class);
 
-    String xmlString = " <xml>\n" +
+    String xmlString = " <dataconvater>\n" +
             " <ToUserName><![CDATA[toUser]]></ToUserName>\n" +
             " <FromUserName><![CDATA[fromUser]]></FromUserName>\n" +
             " <CreateTime>1348831860</CreateTime>\n" +
@@ -37,7 +37,7 @@ public class XMLConverterTest {
             " <PicUrl><![CDATA[this is a url]]></PicUrl>\n" +
             " <MediaId><![CDATA[media_id]]></MediaId>\n" +
             " <MsgId>1234567890123456</MsgId>\n" +
-            " </xml>";
+            " </dataconvater>";
 
     @Test
     public void xml2Object() throws Exception {
