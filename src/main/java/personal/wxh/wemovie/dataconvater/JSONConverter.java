@@ -15,19 +15,19 @@ import java.io.InputStream;
  * 简介: JSON转换器
  */
 @Component
-public class JSONConverter<T> {
+public class JSONConverter {
     private static final Logger logger = LoggerFactory.getLogger(JSONConverter.class);
 
     private ObjectMapper jsonMapper = new ObjectMapper();
 
     /**
      * 对象转换为JSON字符串
-     * @param t 对象
+     * @param object 对象
      * @return JSON字符串
      * @throws JsonProcessingException
      */
-    public String obj2JSON(T t) throws JsonProcessingException {
-        return jsonMapper.writeValueAsString(t);
+    public String obj2JSON(Object object) throws JsonProcessingException {
+        return jsonMapper.writeValueAsString(object);
     }
 
     /**
@@ -37,7 +37,7 @@ public class JSONConverter<T> {
      * @return 对象
      * @throws IOException
      */
-    public T jsonString2Obj(String jsonString, Class<T> type) throws IOException {
+    public Object jsonString2Obj(String jsonString, Class type) throws IOException {
         return jsonMapper.readValue(jsonString, type);
     }
 
@@ -47,7 +47,7 @@ public class JSONConverter<T> {
      * @return 对象
      * @throws IOException
      */
-    public T stream2Obj(InputStream in, Class<T> type) throws IOException {
+    public Object stream2Obj(InputStream in, Class type) throws IOException {
         return jsonMapper.readValue(in, type);
     }
 

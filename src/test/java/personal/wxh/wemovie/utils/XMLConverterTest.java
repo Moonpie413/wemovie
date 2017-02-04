@@ -29,7 +29,7 @@ public class XMLConverterTest {
     private XMLConverter xmlConverter;
     private static Logger logger = LoggerFactory.getLogger(XMLConverter.class);
 
-    String xmlString = " <dataconvater>\n" +
+    String xmlString = " <xml>\n" +
             " <ToUserName><![CDATA[toUser]]></ToUserName>\n" +
             " <FromUserName><![CDATA[fromUser]]></FromUserName>\n" +
             " <CreateTime>1348831860</CreateTime>\n" +
@@ -37,7 +37,7 @@ public class XMLConverterTest {
             " <PicUrl><![CDATA[this is a url]]></PicUrl>\n" +
             " <MediaId><![CDATA[media_id]]></MediaId>\n" +
             " <MsgId>1234567890123456</MsgId>\n" +
-            " </dataconvater>";
+            " </xml>";
 
     @Test
     public void xml2Object() throws Exception {

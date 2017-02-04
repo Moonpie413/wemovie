@@ -1,5 +1,6 @@
 package personal.wxh.wemovie.config;
 
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 

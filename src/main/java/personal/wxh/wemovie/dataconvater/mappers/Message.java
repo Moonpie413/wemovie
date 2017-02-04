@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * DES:
  * PS: @XmlCDATA 注解没卵用， 要生成CDATA得用 @XmlJavaTypeAdapter
  */
-@XmlRootElement(name = "dataconvater")
+@XmlRootElement(name = "xml")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Message {
 
@@ -24,6 +24,16 @@ public class Message {
     public static final String SHORTVIDEO = "shortvideo";
     public static final String LOCATION = "location";
     public static final String NEWS = "news";
+
+    public Message() {}
+
+    public Message(String toUserName, String fromUserName, Long createTime, String msgType, String content) {
+        ToUserName = toUserName;
+        FromUserName = fromUserName;
+        CreateTime = createTime;
+        MsgType = msgType;
+        Content = content;
+    }
 
     // 基本值
     @XmlElement(required = true)

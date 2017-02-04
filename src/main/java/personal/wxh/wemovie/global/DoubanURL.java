@@ -15,4 +15,5 @@ public class DoubanURL {
         count: 查询数目
      */
     public static final String SEARCH_URL = "https://api.douban.com/v2/movie/search";
+    public static final String SUBJECT_SEARCH_URL = "https://movie.douban.com/subject_search?search_text=";
 }

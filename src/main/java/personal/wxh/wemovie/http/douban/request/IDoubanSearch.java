@@ -18,6 +18,6 @@ public interface IDoubanSearch {
      * @param start 开始索引
      * @return 查询结果
      */
-    DoubanSearchResult search(KeyType keyType, String keyword, String count, String start) throws IOException;
+    DoubanSearchResult search(KeyType keyType, String keyword, String count, String start);
 
 }
