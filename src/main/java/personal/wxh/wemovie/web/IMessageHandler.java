@@ -13,7 +13,7 @@ import java.io.IOException;
 public interface IMessageHandler {
     String handleTextMessage(Message message) throws IOException, JAXBException;
     String handleImageMessage(Message message);
-    String handleVoiceMessage(Message message);
+    String handleVoiceMessage(Message message) throws IOException, JAXBException;
     String handleVideoMessage(Message message);
     String handleShortVideoMessage(Message message);
     String handleLocationMessage(Message message);

@@ -6,15 +6,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import personal.wxh.wemovie.dataconvater.XMLConverter;
-import personal.wxh.wemovie.dataconvater.mappers.Articles;
-import personal.wxh.wemovie.dataconvater.mappers.Item;
 import personal.wxh.wemovie.dataconvater.mappers.Message;
-import personal.wxh.wemovie.global.DoubanURL;
-import personal.wxh.wemovie.http.douban.modules.DoubanSearchResult;
-import personal.wxh.wemovie.http.douban.modules.Subject;
-import personal.wxh.wemovie.http.douban.request.DoubanSearchImpl;
-import personal.wxh.wemovie.http.douban.request.IDoubanSearch;
-import personal.wxh.wemovie.http.douban.request.KeyType;
+
 import personal.wxh.wemovie.props.PropertyGetter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -79,6 +72,8 @@ public class WechatController {
             response.setStatus(200);
             writer.write("success");
             messageReceived = (Message) xmlConverter.xml2Object(request.getInputStream());
+            logger.info("收到来自用户 {} 的 {} 消息",
+                    messageReceived.getFromUserName(), messageReceived.getMsgType());
             String mesType = messageReceived.getMsgType();
             switch (mesType) {
                 case Message.TEXT:
@@ -86,7 +81,7 @@ public class WechatController {
                 case Message.IMAGE:
                     break;
                 case Message.VOICE:
-                    break;
+                    result = handleVoiceMessage(messageReceived);
                 case Message.VIDEO:
                     break;
                 case Message.SHORTVIDEO:
@@ -110,7 +105,8 @@ public class WechatController {
             if (result == null) {
                 assert messageReceived != null;
                 Message err = new Message(messageReceived.getFromUserName(), messageReceived.getToUserName(),
-                        System.currentTimeMillis(), Message.TEXT, "服务器开小差，请稍后再试");
+                        System.currentTimeMillis(), Message.TEXT);
+                err.setContent("服务器出错，请联系开发者或者留言");
                 try {
                     writer.write(xmlConverter.object2XML(err));
                 } catch (IOException e) {
@@ -122,13 +118,17 @@ public class WechatController {
             try {
                 writer.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("writer流关闭出错", e);
             }
         }
     }
 
-    private String handleTextMessage(Message message) throws IOException, JAXBException, Exception {
+    private String handleTextMessage(Message message) throws IOException, JAXBException {
         return messageHandler.handleTextMessage(message);
+    }
+
+    private String handleVoiceMessage(Message message) throws IOException, JAXBException {
+        return messageHandler.handleVoiceMessage(message);
     }
 
 }

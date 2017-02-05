@@ -27,12 +27,11 @@ public class Message {
 
     public Message() {}
 
-    public Message(String toUserName, String fromUserName, Long createTime, String msgType, String content) {
+    public Message(String toUserName, String fromUserName, Long createTime, String msgType) {
         ToUserName = toUserName;
         FromUserName = fromUserName;
         CreateTime = createTime;
         MsgType = msgType;
-        Content = content;
     }
 
     // 基本值

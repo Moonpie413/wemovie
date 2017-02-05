@@ -45,13 +45,44 @@ public class DoubanMovieMessageHandler implements IMessageHandler {
 
     @Override
     public String handleTextMessage(Message message) throws IOException, JAXBException {
-        String content = message.getContent();
-        logger.info("收到来自用户 {} 的消息： {}", message.getFromUserName(), content);
-        Message messageReturn = new Message();
-        messageReturn.setFromUserName(message.getToUserName());
-        messageReturn.setToUserName(message.getFromUserName());
-        messageReturn.setCreateTime(System.currentTimeMillis());
-        messageReturn.setMsgType(Message.NEWS);
+        logger.info("正在处理 文本类 消息 {}", message.getContent());
+        String content = message.getContent().replaceAll("[\\pP\\pS\\pZ]", "");
+        return xmlConverter.object2XML(doSoubanSearch(message.getFromUserName(),
+                message.getToUserName(), content));
+    }
+
+
+
+    @Override
+    public String handleImageMessage(Message message) {
+        return null;
+    }
+
+    @Override
+    public String handleVoiceMessage(Message message) throws IOException, JAXBException {
+        String recognition = message.getRecognition().replaceAll("[\\pP\\pS\\pZ]", "");
+        logger.info("正在处理 语音类消息 语音内容：{}", recognition);
+        return xmlConverter.object2XML(doSoubanSearch(message.getFromUserName(),
+                message.getToUserName(), recognition));
+    }
+
+    @Override
+    public String handleVideoMessage(Message message) {
+        return null;
+    }
+
+    @Override
+    public String handleShortVideoMessage(Message message) {
+        return null;
+    }
+
+    @Override
+    public String handleLocationMessage(Message message) {
+        return null;
+    }
+        private Message doSoubanSearch(String toUserName, String fromUserName, String content) {
+        Message messageReturn = new Message(toUserName, fromUserName,
+                System.currentTimeMillis(), Message.NEWS);
         DoubanSearchResult searchResult = doubanSearch.search(KeyType.q, content, DoubanSearchImpl.DEFAULT_COUNT,
                 DoubanSearchImpl.DEFAULT_START);
         List<Item> itemList = new ArrayList<>();
@@ -63,7 +94,7 @@ public class DoubanMovieMessageHandler implements IMessageHandler {
         } else {
             messageReturn.setMsgType(Message.TEXT);
             messageReturn.setContent("没有找到关于\n" + content + "\n" + "的结果");
-            return xmlConverter.object2XML(messageReturn);
+            return messageReturn;
         }
         itemList.add(itemHead);
         for (int i = 0; i < countNum; i++) {
@@ -83,31 +114,6 @@ public class DoubanMovieMessageHandler implements IMessageHandler {
         Articles articles = new Articles(itemList);
         messageReturn.setArticleCount(itemList.size());
         messageReturn.setArticles(articles);
-        return xmlConverter.object2XML(messageReturn);
-    }
-
-    @Override
-    public String handleImageMessage(Message message) {
-        return null;
-    }
-
-    @Override
-    public String handleVoiceMessage(Message message) {
-        return null;
-    }
-
-    @Override
-    public String handleVideoMessage(Message message) {
-        return null;
-    }
-
-    @Override
-    public String handleShortVideoMessage(Message message) {
-        return null;
-    }
-
-    @Override
-    public String handleLocationMessage(Message message) {
-        return null;
+        return messageReturn;
     }
 }
