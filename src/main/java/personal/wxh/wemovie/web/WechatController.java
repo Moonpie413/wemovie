@@ -35,7 +35,7 @@ public class WechatController {
 
     private PropertyGetter propertyGetter;
     private XMLConverter xmlConverter;
-    private IDoubanSearch doubanSearch;
+    private IMessageHandler messageHandler;
     private Logger logger = LoggerFactory.getLogger(WechatController.class);
 
     @Autowired
@@ -49,8 +49,8 @@ public class WechatController {
     }
 
     @Autowired
-    public void setDoubanSearch(IDoubanSearch doubanSearch) {
-        this.doubanSearch = doubanSearch;
+    public void setMessageHandler(IMessageHandler messageHandler) {
+        this.messageHandler = messageHandler;
     }
 
     @GetMapping
@@ -127,46 +127,8 @@ public class WechatController {
         }
     }
 
-    public String handleTextMessage(Message message) throws IOException, JAXBException, Exception {
-        String content = message.getContent();
-        logger.info("收到来自用户 {} 的消息： {}", message.getFromUserName(), content);
-        Message messageReturn = new Message();
-        messageReturn.setFromUserName(message.getToUserName());
-        messageReturn.setToUserName(message.getFromUserName());
-        messageReturn.setCreateTime(System.currentTimeMillis());
-        messageReturn.setMsgType(Message.NEWS);
-        DoubanSearchResult searchResult = doubanSearch.search(KeyType.q, content, DoubanSearchImpl.DEFAULT_COUNT,
-                DoubanSearchImpl.DEFAULT_START);
-        List<Item> itemList = new ArrayList<>();
-        List<Subject> subjects = searchResult.getSubjects();
-        int countNum = subjects.size();
-        Item itemHead;
-        if (countNum > 0) {
-            itemHead = new Item("以下为关于 " + content + " 的结果 " + searchResult.getCount());
-        } else {
-            messageReturn.setMsgType(Message.TEXT);
-            messageReturn.setContent("没有找到关于\n" + content + "\n" + "的结果");
-            return xmlConverter.object2XML(messageReturn);
-        }
-        itemList.add(itemHead);
-        for (int i = 0; i < countNum; i++) {
-            Subject subject = subjects.get(i);
-            Item item = new Item(subject.getTitle());
-            item.setPicUrl(subject.getImages().get("large"));
-            item.setUrl(subject.getAlt());
-            itemList.add(item);
-        }
-        int totalNum = searchResult.getTotal();
-        int more = totalNum - countNum;
-        if (more > 0) {
-            Item itemTail = new Item("还有剩余" + more + "条结果， 点击去豆瓣查看");
-            itemTail.setUrl(DoubanURL.SUBJECT_SEARCH_URL + content);
-            itemList.add(itemTail);
-        }
-        Articles articles = new Articles(itemList);
-        messageReturn.setArticleCount(itemList.size());
-        messageReturn.setArticles(articles);
-        return xmlConverter.object2XML(messageReturn);
+    private String handleTextMessage(Message message) throws IOException, JAXBException, Exception {
+        return messageHandler.handleTextMessage(message);
     }
 
 }
