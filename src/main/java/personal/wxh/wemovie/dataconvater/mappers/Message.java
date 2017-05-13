@@ -1,7 +1,5 @@
 package personal.wxh.wemovie.dataconvater.mappers;
 
-import com.sun.xml.internal.txw2.annotation.XmlCDATA;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -53,22 +51,18 @@ public class Message {
     @XmlElement(required = true)
     private Long MsgId;
 
-    @XmlCDATA
     public String getToUserName() {
         return ToUserName;
     }
 
-    @XmlCDATA
     public void setToUserName(String toUserName) {
         ToUserName = toUserName;
     }
 
-    @XmlCDATA
     public String getFromUserName() {
         return FromUserName;
     }
 
-    @XmlCDATA
     public void setFromUserName(String fromUserName) {
         FromUserName = fromUserName;
     }
@@ -81,12 +75,10 @@ public class Message {
         CreateTime = createTime;
     }
 
-    @XmlCDATA
     public String getMsgType() {
         return MsgType;
     }
 
-    @XmlCDATA
     public void setMsgType(String msgType) {
         MsgType = msgType;
     }
@@ -105,12 +97,10 @@ public class Message {
     @XmlJavaTypeAdapter(CDataAdapter.class)
     private String Content;
 
-    @XmlCDATA
     public String getContent() {
         return Content;
     }
 
-    @XmlCDATA
     public void setContent(String content) {
         Content = content;
     }
@@ -137,52 +127,42 @@ public class Message {
     @XmlJavaTypeAdapter(CDataAdapter.class)
     private String ThumbMediaId;
 
-    @XmlCDATA
     public String getPicUrl() {
         return PicUrl;
     }
 
-    @XmlCDATA
     public void setPicUrl(String picUrl) {
         PicUrl = picUrl;
     }
 
-    @XmlCDATA
     public String getMediaId() {
         return MediaId;
     }
 
-    @XmlCDATA
     public void setMediaId(String mediaId) {
         MediaId = mediaId;
     }
 
-    @XmlCDATA
     public String getFormat() {
         return Format;
     }
 
-    @XmlCDATA
     public void setFormat(String format) {
         Format = format;
     }
 
-    @XmlCDATA
     public String getRecognition() {
         return Recognition;
     }
 
-    @XmlCDATA
     public void setRecognition(String recognition) {
         Recognition = recognition;
     }
 
-    @XmlCDATA
     public String getThumbMediaId() {
         return ThumbMediaId;
     }
 
-    @XmlCDATA
     public void setThumbMediaId(String thumbMediaId) {
         ThumbMediaId = thumbMediaId;
     }
@@ -226,12 +206,10 @@ public class Message {
         Scale = scale;
     }
 
-    @XmlCDATA
     public String getLabel() {
         return Label;
     }
 
-    @XmlCDATA
     public void setLabel(String label) {
         Label = label;
     }
@@ -250,32 +228,26 @@ public class Message {
     @XmlJavaTypeAdapter(CDataAdapter.class)
     private String Url;
 
-    @XmlCDATA
     public String getTitle() {
         return Title;
     }
 
-    @XmlCDATA
     public void setTitle(String title) {
         Title = title;
     }
 
-    @XmlCDATA
     public String getDescription() {
         return Description;
     }
 
-    @XmlCDATA
     public void setDescription(String description) {
         Description = description;
     }
 
-    @XmlCDATA
     public String getUrl() {
         return Url;
     }
 
-    @XmlCDATA
     public void setUrl(String url) {
         Url = url;
     }
